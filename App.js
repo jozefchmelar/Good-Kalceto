@@ -67,8 +67,9 @@ class GameScreen extends Component {
         this.state = {
           loading: false,
           data: [{key:1,winner:'blue'},{key:21,winner:'red'},{key:31,winner:'blue'},{key:41,winner:'blue'},{key:18,winner:'red'}],
-          scoreRed  : 0 ,
-          scoreBlue : 0,
+          scoreRed  : 2 ,
+          scoreBlue : 3,
+            rndKey:15,
           error: null,
           refreshing: false,
         };
@@ -98,7 +99,10 @@ class GameScreen extends Component {
         <View style={{flex :30 ,backgroundColor:'white',flexDirection:'row' ,justifyContent:'space-between'}}>
          
             <View style={{flexDirection:'column',margin:16,justifyContent:'center',alignItems:'center'}}>
-            <TouchableOpacity  onPress={() => this.state.data.push({key:57987,winner:'red'})}>
+            <TouchableOpacity onPress={() => this.setState((prev)=>{
+                    var d = prev.data
+                    d.push({key:prev.rndKey,winner:'red'})
+                     return {data: d, scoreRed : prev.scoreRed+1,rndKey:prev.rndKey+1}}) }>
                 <Image  style={{width:100 ,height:100}} source={require('./res/pic/cervenychlap.png')}/>
                 <Text>RED TEAM</Text>      
                 </TouchableOpacity>  
@@ -116,7 +120,11 @@ class GameScreen extends Component {
             </View>
             
             <View style={{flexDirection:'column',margin:16,justifyContent:'center',alignItems:'center'}}>
-                <TouchableOpacity  onPress={() => this.state.data.push({key:555,winner:'blue'})}>
+                <TouchableOpacity  onPress={() => this.setState((prev)=>{
+                    var d = prev.data
+                    d.push({key: prev.rndKey,winner:'blue'})
+                     return {data: d, scoreBlue : prev.scoreBlue+1,rndKey:prev.rndKey+1}}) }>
+                  
                 <Image style={{width:100 ,height:100}}  source={require('./res/pic/modrychlap.png')}/>
                 <Text>BLUE TEAM</Text>        
                 </TouchableOpacity>
