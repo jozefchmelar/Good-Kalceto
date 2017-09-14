@@ -69,7 +69,7 @@ class GameScreen extends Component {
           data: [{key:1,winner:'blue'},{key:21,winner:'red'},{key:31,winner:'blue'},{key:41,winner:'blue'},{key:18,winner:'red'}],
           scoreRed  : 2 ,
           scoreBlue : 3,
-            rndKey:15,
+            rndKey:250,
           error: null,
           refreshing: false,
         };
@@ -101,7 +101,7 @@ class GameScreen extends Component {
             <View style={{flexDirection:'column',margin:16,justifyContent:'center',alignItems:'center'}}>
             <TouchableOpacity onPress={() => this.setState((prev)=>{
                     var d = prev.data
-                    d.push({key:prev.rndKey,winner:'red'})
+                    d.unshift({key:prev.rndKey,winner:'red'})
                      return {data: d, scoreRed : prev.scoreRed+1,rndKey:prev.rndKey+1}}) }>
                 <Image  style={{width:100 ,height:100}} source={require('./res/pic/cervenychlap.png')}/>
                 <Text>RED TEAM</Text>      
@@ -122,7 +122,7 @@ class GameScreen extends Component {
             <View style={{flexDirection:'column',margin:16,justifyContent:'center',alignItems:'center'}}>
                 <TouchableOpacity  onPress={() => this.setState((prev)=>{
                     var d = prev.data
-                    d.push({key: prev.rndKey,winner:'blue'})
+                    d.unshift({key: prev.rndKey,winner:'blue'})
                      return {data: d, scoreBlue : prev.scoreBlue+1,rndKey:prev.rndKey+1}}) }>
                   
                 <Image style={{width:100 ,height:100}}  source={require('./res/pic/modrychlap.png')}/>
@@ -134,7 +134,7 @@ class GameScreen extends Component {
         <View style={{flex :70,backgroundColor:'#f1f2f5' }}>
         <FlatList
         keyExtractor={this._keyExtractor}
-        
+        extraData={this.state}
                    data={this.state.data}
            
             renderItem={this._renderGoal}
